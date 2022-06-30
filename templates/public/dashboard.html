@@ -1,5 +1,18 @@
 {% extends "public/templates/base.html" %} {%block main %}
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
 <div class="child child4">
   <h3 class="m-2">Dashboard Page</h3>
 </div>
@@ -32,16 +45,25 @@
     <caption>
       <h3>
         EMPLOYEES LIST
-        <button
-          type="button"
-          class="btn btn-primary pull-right"
-          data-toggle="modal"
-          data-target="#addModal"
-        >
-          Add New Employee
-        </button>
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary pull-right" 
+data-bs-toggle="modal" data-bs-target="#addModal"
+><i class="fa fa-plus"></i> 
+Add New
+</button>
       </h3>
     </caption>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for  message in messages %}
+            <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                {{ message }}
+            </div>
+      
+        {% endfor %}
+    {% endif %}
+{% endwith %}
     <hr />
     <table class="table table-striped">
       <tr>
@@ -58,32 +80,158 @@
         <td>mark@gmail.com</td>
         <td>0745822554</td>
         <td>
-          <a
-            href="#"
-            class="btn btn-warning btn-xs"
-            data-toggle="modal"
-            data-target="#editmodal"
-            >Edit</a
-          >
+          <a class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#editModal" href="#">
+            <i class="fa fa-edit"></i> Edit
+            
+          </a>
 
           <a
             href="#"
             class="btn btn-danger btn-xs"
             onclick="return confirm('Are You Sure To Delete')"
-            >Delete</a
-          >
+            > <i class="fa fa-trash"></i> Delete</a>
 
           <a
             href="#"
             class="btn btn-success btn-xs"
             data-toggle="modal"
-            data-target="#viewmodal"
-            >View</a
-          >
+            data-target="#viewmodal"> <i class="fa fa-eye"></i> View</a>
         </td>
       </tr>
     </table>
   </div>
+  <!-- Button trigger modal -->
+  <!-- Button trigger modal -->
+
+<!-- Modal -->
+
+
+<!-- Button trigger modal -->
+
+
+<div class="modal fade" id="editModal"  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="PUT">
+          <div class="form-group">
+            <label>Name:</label>
+            <input
+              class="form-control"
+              name="name"
+             value="name"
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input
+              class="form-control"
+              name="email"
+              value="Email"
+              type="email"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone:</label>
+            <input
+              class="form-control"
+              name="phone"
+              value="Phone"
+              type="number"
+            />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary  m-3" type="submit">
+            Update
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
 </div>
 
-{% endblock %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="addModal"  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('add')}}" method="POST">
+          <div class="form-group">
+            <label>Name:</label>
+            <input
+              class="form-control"
+              name="name"
+              required="1"
+              type="text"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input
+              class="form-control"
+              name="email"
+              required="1"
+              type="email"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone:</label>
+            <input
+              class="form-control"
+              name="phone"
+              required="1"
+              type="number"
+            />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary  m-3" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>
+
+  {% endblock %}
+</div>
